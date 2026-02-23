@@ -85,7 +85,7 @@ if(DEFINED PROTOC_PATH)
 endif()
 
 # thrid-party libraries
-add_subdirectory(src/boringssl/src EXCLUDE_FROM_ALL)
+#add_subdirectory(src/boringssl/src EXCLUDE_FROM_ALL)
 add_subdirectory(src/fmtlib EXCLUDE_FROM_ALL)
 add_subdirectory(src/pcre EXCLUDE_FROM_ALL)
 add_subdirectory(src/libpng EXCLUDE_FROM_ALL)

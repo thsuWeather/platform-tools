@@ -18,9 +18,9 @@ project(platform-tools)
 # executable files output path
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME})
 
-include(dmtracedump.cmake)
+#include(dmtracedump.cmake)
 include(hprof-conv.cmake)
-include(sqlite3.cmake)
+#include(sqlite3.cmake)
 include(etc1tool.cmake)
 include(e2fsprogs.cmake)
 include(f2fs-tools.cmake)
