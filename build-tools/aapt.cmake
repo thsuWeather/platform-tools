@@ -28,29 +28,9 @@ set(INCLUDES
     ${SRC}/incremental_delivery/incfs/kernel-headers
     )
 
-add_library(libaapt STATIC
-    ${SRC}/base/tools/aapt/AaptAssets.cpp
-    ${SRC}/base/tools/aapt/AaptConfig.cpp
-    ${SRC}/base/tools/aapt/AaptUtil.cpp
-    ${SRC}/base/tools/aapt/AaptXml.cpp
-    ${SRC}/base/tools/aapt/ApkBuilder.cpp
-    ${SRC}/base/tools/aapt/Command.cpp
-    ${SRC}/base/tools/aapt/CrunchCache.cpp
-    ${SRC}/base/tools/aapt/FileFinder.cpp
-    ${SRC}/base/tools/aapt/Images.cpp
-    ${SRC}/base/tools/aapt/Package.cpp
-    ${SRC}/base/tools/aapt/pseudolocalize.cpp
-    ${SRC}/base/tools/aapt/Resource.cpp
-    ${SRC}/base/tools/aapt/ResourceFilter.cpp
-    ${SRC}/base/tools/aapt/ResourceIdCache.cpp
-    ${SRC}/base/tools/aapt/ResourceTable.cpp
-    ${SRC}/base/tools/aapt/SourcePos.cpp
-    ${SRC}/base/tools/aapt/StringPool.cpp
-    ${SRC}/base/tools/aapt/WorkQueue.cpp
-    ${SRC}/base/tools/aapt/XMLNode.cpp
-    ${SRC}/base/tools/aapt/ZipEntry.cpp
-    ${SRC}/base/tools/aapt/ZipFile.cpp
-    )
+file(GLOB LIBAAPT_SRCS ${SRC}/base/tools/aapt/*.cpp)
+list(REMOVE_ITEM LIBAAPT_SRCS ${SRC}/base/tools/aapt/Main.cpp)
+add_library(libaapt STATIC ${LIBAAPT_SRCS})
 target_compile_definitions(libaapt PRIVATE 
     -DSTATIC_ANDROIDFW_FOR_TOOLS
     )

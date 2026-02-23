@@ -14,11 +14,8 @@
 # limitations under the License.
 #
 
-add_library(libext4 STATIC
-    ${SRC}/extras/ext4_utils/ext4_utils.cpp
-    ${SRC}/extras/ext4_utils/wipe.cpp
-    ${SRC}/extras/ext4_utils/ext4_sb.cpp
-    )
+file(GLOB LIBEXT4_SRCS ${SRC}/extras/ext4_utils/*.cpp)
+add_library(libext4 STATIC ${LIBEXT4_SRCS})
 target_include_directories(libext4 PRIVATE
     ${SRC}/core/libsparse/include 
     ${SRC}/core/include 
@@ -27,16 +24,8 @@ target_include_directories(libext4 PRIVATE
     ${SRC}/libbase/include
     )
 
-add_library(libfsmgr STATIC
-    ${SRC}/core/fs_mgr/liblp/images.cpp
-    ${SRC}/core/fs_mgr/liblp/builder.cpp
-    ${SRC}/core/fs_mgr/liblp/super_layout_builder.cpp
-    ${SRC}/core/fs_mgr/liblp/property_fetcher.cpp
-    ${SRC}/core/fs_mgr/liblp/partition_opener.cpp
-    ${SRC}/core/fs_mgr/liblp/reader.cpp
-    ${SRC}/core/fs_mgr/liblp/utility.cpp
-    ${SRC}/core/fs_mgr/liblp/writer.cpp
-    )
+file(GLOB LIBFSMGR_SRCS ${SRC}/core/fs_mgr/liblp/*.cpp)
+add_library(libfsmgr STATIC ${LIBFSMGR_SRCS})
 target_include_directories(libfsmgr PRIVATE
     ${SRC}/core/fs_mgr/liblp/include 
     ${SRC}/libbase/include

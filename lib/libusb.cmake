@@ -14,18 +14,11 @@
 # limitations under the License.
 #
 
-add_library(libusb STATIC
-    ${SRC}/libusb/libusb/core.c
-    ${SRC}/libusb/libusb/descriptor.c
-    ${SRC}/libusb/libusb/hotplug.c
-    ${SRC}/libusb/libusb/io.c
-    ${SRC}/libusb/libusb/sync.c
-    ${SRC}/libusb/libusb/strerror.c
-    ${SRC}/libusb/libusb/os/linux_usbfs.c
-    ${SRC}/libusb/libusb/os/events_posix.c
-    ${SRC}/libusb/libusb/os/threads_posix.c
-    ${SRC}/libusb/libusb/os/linux_netlink.c
+file(GLOB LIBUSB_SRCS
+    ${SRC}/libusb/libusb/*.c
+    ${SRC}/libusb/libusb/os/*.c
     )
+add_library(libusb STATIC ${LIBUSB_SRCS})
 target_include_directories(libusb PRIVATE
     ${SRC}/libusb/libusb
     ${SRC}/libusb/libusb/os

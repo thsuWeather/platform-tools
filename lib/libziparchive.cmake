@@ -14,14 +14,12 @@
 # limitations under the License.
 #
 
-add_library(libziparchive STATIC
-    ${SRC}/libziparchive/zip_archive.cc
-    ${SRC}/libziparchive/zip_archive_stream_entry.cc
-    ${SRC}/libziparchive/zip_cd_entry_map.cc
-    ${SRC}/libziparchive/zip_writer.cc
-    ${SRC}/libziparchive/zip_error.cpp
-    ${SRC}/libziparchive/incfs_support/signal_handling.cpp
+file(GLOB LIBZIPARCHIVE_SRCS
+    ${SRC}/libziparchive/*.cc
+    ${SRC}/libziparchive/*.cpp
+    ${SRC}/libziparchive/incfs_support/*.cpp
     )
+add_library(libziparchive STATIC ${LIBZIPARCHIVE_SRCS})
 
 target_compile_definitions(libziparchive PRIVATE 
     -DZLIB_CONST

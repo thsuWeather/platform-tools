@@ -14,14 +14,13 @@
 # limitations under the License.
 #
 
-add_library(libincfs STATIC
-    ${SRC}/incremental_delivery/incfs/incfs_ndk.c
-    ${SRC}/incremental_delivery/incfs/incfs.cpp
-    ${SRC}/incremental_delivery/incfs/MountRegistry.cpp
-    ${SRC}/incremental_delivery/incfs/path.cpp
-    ${SRC}/incremental_delivery/incfs/util/map_ptr.cpp
-    ${SRC}/incremental_delivery/sysprop/IncrementalProperties.sysprop.cpp
+file(GLOB LIBINCFS_SRCS
+    ${SRC}/incremental_delivery/incfs/*.c
+    ${SRC}/incremental_delivery/incfs/*.cpp
+    ${SRC}/incremental_delivery/incfs/util/*.cpp
+    ${SRC}/incremental_delivery/sysprop/*.cpp
     )
+add_library(libincfs STATIC ${LIBINCFS_SRCS})
     
 target_include_directories(libincfs PRIVATE
     ${SRC}/incremental_delivery/incfs/include 

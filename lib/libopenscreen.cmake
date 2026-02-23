@@ -14,43 +14,17 @@
 # limitations under the License.
 #
 
-add_library(libopenscreen STATIC 
-    ${SRC}/openscreen/discovery/dnssd/impl/conversion_layer.cc
-    ${SRC}/openscreen/discovery/dnssd/impl/dns_data_graph.cc
-    ${SRC}/openscreen/discovery/dnssd/impl/instance_key.cc
-    ${SRC}/openscreen/discovery/dnssd/impl/network_interface_config.cc
-    ${SRC}/openscreen/discovery/dnssd/impl/publisher_impl.cc
-    ${SRC}/openscreen/discovery/dnssd/impl/querier_impl.cc
-    ${SRC}/openscreen/discovery/dnssd/impl/service_dispatcher.cc
-    ${SRC}/openscreen/discovery/dnssd/impl/service_instance.cc
-    ${SRC}/openscreen/discovery/dnssd/impl/service_key.cc
-    ${SRC}/openscreen/discovery/dnssd/public/dns_sd_instance.cc
-    ${SRC}/openscreen/discovery/dnssd/public/dns_sd_instance_endpoint.cc
-    ${SRC}/openscreen/discovery/dnssd/public/dns_sd_txt_record.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_probe.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_probe_manager.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_publisher.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_querier.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_reader.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_receiver.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_records.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_responder.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_sender.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_service_impl.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_trackers.cc
-    ${SRC}/openscreen/discovery/mdns/mdns_writer.cc
-    ${SRC}/openscreen/discovery/mdns/public/mdns_service.cc
-    ${SRC}/openscreen/platform/base/error.cc
-    ${SRC}/openscreen/platform/base/interface_info.cc
-    ${SRC}/openscreen/platform/base/ip_address.cc
-    ${SRC}/openscreen/platform/base/udp_packet.cc
-    ${SRC}/openscreen/platform/api/udp_socket.cc
-    ${SRC}/openscreen/util/alarm.cc
-    ${SRC}/openscreen/util/big_endian.cc
-    ${SRC}/openscreen/platform/impl/time.cc
-    ${SRC}/openscreen/platform/impl/network_interface.cc
-    ${SRC}/openscreen/platform/impl/network_interface_linux.cc
+file(GLOB LIBOPENSCREEN_SRCS
+    ${SRC}/openscreen/discovery/dnssd/impl/*.cc
+    ${SRC}/openscreen/discovery/dnssd/public/*.cc
+    ${SRC}/openscreen/discovery/mdns/*.cc
+    ${SRC}/openscreen/discovery/mdns/public/*.cc
+    ${SRC}/openscreen/platform/base/*.cc
+    ${SRC}/openscreen/platform/api/*.cc
+    ${SRC}/openscreen/platform/impl/*.cc
+    ${SRC}/openscreen/util/*.cc
     )
+add_library(libopenscreen STATIC ${LIBOPENSCREEN_SRCS})
 
 target_compile_options(libopenscreen PRIVATE 
     -fno-strict-aliasing

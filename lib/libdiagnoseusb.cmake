@@ -14,9 +14,8 @@
 # limitations under the License.
 #
 
-add_library(libdiagnoseusb STATIC
-	${SRC}/core/diagnose_usb/diagnose_usb.cpp
-    )
+file(GLOB LIBDIAGNOSEUSB_SRCS ${SRC}/core/diagnose_usb/*.cpp)
+add_library(libdiagnoseusb STATIC ${LIBDIAGNOSEUSB_SRCS})
 
 target_include_directories(libdiagnoseusb PRIVATE
     ${SRC}/core/diagnose_usb/include

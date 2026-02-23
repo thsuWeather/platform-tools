@@ -14,14 +14,8 @@
 # limitations under the License.
 #
 
-add_library(libsparse STATIC
-    ${SRC}/core/libsparse/backed_block.cpp
-    ${SRC}/core/libsparse/output_file.cpp
-    ${SRC}/core/libsparse/sparse.cpp
-    ${SRC}/core/libsparse/sparse_crc32.cpp
-    ${SRC}/core/libsparse/sparse_err.cpp
-    ${SRC}/core/libsparse/sparse_read.cpp
-    )
+file(GLOB LIBSPARSE_SRCS ${SRC}/core/libsparse/*.cpp)
+add_library(libsparse STATIC ${LIBSPARSE_SRCS})
 
 target_include_directories(libsparse PRIVATE
     ${SRC}/core/libsparse/include 

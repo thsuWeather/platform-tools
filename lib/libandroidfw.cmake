@@ -14,31 +14,8 @@
 # limitations under the License.
 #
 
-add_library(libandroidfw STATIC
-    ${SRC}/base/libs/androidfw/ApkAssets.cpp
-    ${SRC}/base/libs/androidfw/Asset.cpp
-    ${SRC}/base/libs/androidfw/AssetDir.cpp
-    ${SRC}/base/libs/androidfw/AssetManager.cpp
-    ${SRC}/base/libs/androidfw/AssetManager2.cpp
-    ${SRC}/base/libs/androidfw/AssetsProvider.cpp
-    ${SRC}/base/libs/androidfw/AttributeResolution.cpp
-    ${SRC}/base/libs/androidfw/ChunkIterator.cpp
-    ${SRC}/base/libs/androidfw/ConfigDescription.cpp
-    ${SRC}/base/libs/androidfw/Idmap.cpp
-    ${SRC}/base/libs/androidfw/LoadedArsc.cpp
-    ${SRC}/base/libs/androidfw/Locale.cpp
-    ${SRC}/base/libs/androidfw/LocaleData.cpp
-    ${SRC}/base/libs/androidfw/misc.cpp
-    ${SRC}/base/libs/androidfw/ObbFile.cpp
-    ${SRC}/base/libs/androidfw/PosixUtils.cpp
-    ${SRC}/base/libs/androidfw/ResourceTypes.cpp
-    ${SRC}/base/libs/androidfw/ResourceUtils.cpp
-    ${SRC}/base/libs/androidfw/StreamingZipInflater.cpp
-    ${SRC}/base/libs/androidfw/TypeWrappers.cpp
-    ${SRC}/base/libs/androidfw/Util.cpp
-    ${SRC}/base/libs/androidfw/ZipFileRO.cpp
-    ${SRC}/base/libs/androidfw/ZipUtils.cpp
-    )
+file(GLOB LIBANDROIDFW_SRCS ${SRC}/base/libs/androidfw/*.cpp)
+add_library(libandroidfw STATIC ${LIBANDROIDFW_SRCS})
 
 target_compile_definitions(libandroidfw PRIVATE 
     -DSTATIC_ANDROIDFW_FOR_TOOLS

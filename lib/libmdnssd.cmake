@@ -14,11 +14,8 @@
 # limitations under the License.
 #
 
-add_library(libmdnssd STATIC
-    ${SRC}/mdnsresponder/mDNSShared/dnssd_clientlib.c
-    ${SRC}/mdnsresponder/mDNSShared/dnssd_clientstub.c
-    ${SRC}/mdnsresponder/mDNSShared/dnssd_ipc.c
-    )
+file(GLOB LIBMDNSSD_SRCS ${SRC}/mdnsresponder/mDNSShared/*.c)
+add_library(libmdnssd STATIC ${LIBMDNSSD_SRCS})
 target_compile_options(libmdnssd PRIVATE
     -fno-strict-aliasing
     -fwrapv

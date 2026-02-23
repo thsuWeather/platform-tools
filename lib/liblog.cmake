@@ -14,21 +14,8 @@
 # limitations under the License.
 #
 
-add_library(liblog STATIC
-    ${SRC}/logging/liblog/log_event_list.cpp
-    ${SRC}/logging/liblog/log_event_write.cpp
-    ${SRC}/logging/liblog/logger_name.cpp
-    ${SRC}/logging/liblog/logger_read.cpp
-    ${SRC}/logging/liblog/logger_write.cpp
-    ${SRC}/logging/liblog/properties.cpp
-    ${SRC}/logging/liblog/logprint.cpp
-    ${SRC}/logging/liblog/event_tag_map.cpp
-    ${SRC}/logging/liblog/log_time.cpp
-    ${SRC}/logging/liblog/pmsg_reader.cpp
-    ${SRC}/logging/liblog/pmsg_writer.cpp
-    ${SRC}/logging/liblog/logd_reader.cpp
-    ${SRC}/logging/liblog/logd_writer.cpp
-    )
+file(GLOB LIBLOG_SRCS ${SRC}/logging/liblog/*.cpp)
+add_library(liblog STATIC ${LIBLOG_SRCS})
 
 target_compile_definitions(liblog PRIVATE
     -DLIBLOG_LOG_TAG=1006 

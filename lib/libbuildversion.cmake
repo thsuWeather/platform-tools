@@ -14,9 +14,8 @@
 # limitations under the License.
 #
 
-add_library(libbuildversion STATIC
-    ${SRC}/libbuildversion/libbuildversion.cpp
-    )
+file(GLOB LIBBUILDVERSION_SRCS ${SRC}/libbuildversion/*.cpp)
+add_library(libbuildversion STATIC ${LIBBUILDVERSION_SRCS})
 
 target_include_directories(libbuildversion PRIVATE
     ${SRC}/libbuildversion/include

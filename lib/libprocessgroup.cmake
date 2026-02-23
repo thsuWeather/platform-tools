@@ -14,15 +14,12 @@
 # limitations under the License.
 #
 
-add_library(libprocessgroup STATIC
-    ${SRC}/core/libprocessgroup/cgroup_map.cpp
-    ${SRC}/core/libprocessgroup/processgroup.cpp
-    ${SRC}/core/libprocessgroup/sched_policy.cpp
-    ${SRC}/core/libprocessgroup/task_profiles.cpp
-    ${SRC}/core/libprocessgroup/cgrouprc_format/cgroup_controller.cpp
-    ${SRC}/core/libprocessgroup/cgrouprc/cgroup_controller.cpp
-    ${SRC}/core/libprocessgroup/cgrouprc/cgroup_file.cpp
+file(GLOB LIBPROCESSGROUP_SRCS
+    ${SRC}/core/libprocessgroup/*.cpp
+    ${SRC}/core/libprocessgroup/cgrouprc_format/*.cpp
+    ${SRC}/core/libprocessgroup/cgrouprc/*.cpp
     )
+add_library(libprocessgroup STATIC ${LIBPROCESSGROUP_SRCS})
 
 target_include_directories(libprocessgroup PRIVATE 
     ${SRC}/core/libprocessgroup/include

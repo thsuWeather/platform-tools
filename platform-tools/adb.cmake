@@ -96,28 +96,13 @@ endif()
 # ========================= fastdeploy proto ============================
 
 
-add_library(libadb STATIC
-    ${SRC}/adb/adb.cpp
-    ${SRC}/adb/adb_io.cpp
-    ${SRC}/adb/adb_listeners.cpp
-    ${SRC}/adb/adb_mdns.cpp
-    ${SRC}/adb/adb_trace.cpp
-    ${SRC}/adb/adb_unique_fd.cpp
-    ${SRC}/adb/adb_utils.cpp
-    ${SRC}/adb/fdevent/fdevent.cpp
-    ${SRC}/adb/services.cpp
-    ${SRC}/adb/sockets.cpp
-    ${SRC}/adb/socket_spec.cpp
-    ${SRC}/adb/sysdeps/env.cpp
-    ${SRC}/adb/sysdeps/errno.cpp
-    ${SRC}/adb/transport.cpp
-    ${SRC}/adb/transport_fd.cpp
-    ${SRC}/adb/types.cpp
-    ${SRC}/adb/client/openscreen/mdns_service_info.cpp
-    ${SRC}/adb/client/openscreen/mdns_service_watcher.cpp
-    ${SRC}/adb/client/openscreen/platform/logging.cpp
-    ${SRC}/adb/client/openscreen/platform/task_runner.cpp
-    ${SRC}/adb/client/openscreen/platform/udp_socket.cpp
+file(GLOB LIBADB_SRCS
+    ${SRC}/adb/*.cpp
+    ${SRC}/adb/fdevent/*.cpp
+    ${SRC}/adb/sysdeps/*.cpp
+    ${SRC}/adb/sysdeps/posix/*.cpp
+    ${SRC}/adb/client/openscreen/*.cpp
+    ${SRC}/adb/client/openscreen/platform/*.cpp
     ${SRC}/adb/client/auth.cpp
     ${SRC}/adb/client/adb_wifi.cpp
     ${SRC}/adb/client/usb_libusb.cpp
@@ -126,13 +111,10 @@ add_library(libadb STATIC
     ${SRC}/adb/client/mdns_utils.cpp
     ${SRC}/adb/client/transport_mdns.cpp
     ${SRC}/adb/client/transport_usb.cpp
-    ${SRC}/adb/client/pairing/pairing_client.cpp
+    ${SRC}/adb/client/pairing/*.cpp
     ${SRC}/adb/client/usb_linux.cpp
-    ${SRC}/adb/fdevent/fdevent_epoll.cpp
-    ${SRC}/adb/sysdeps_unix.cpp
-    ${SRC}/adb/sysdeps/posix/network.cpp
-    ${ADB_PROTO_SRC} ${ADB_PROTO_HDRS}
     )
+add_library(libadb STATIC ${LIBADB_SRCS} ${ADB_PROTO_SRC} ${ADB_PROTO_HDRS})
 target_compile_definitions(libadb PRIVATE 
     -D_GNU_SOURCE
     -DADB_HOST=1
@@ -166,12 +148,8 @@ target_include_directories(libadb PRIVATE
     ${SRC}/incremental_delivery/incfs/util/include 
     )
 
-add_library(libadb_crypto STATIC
-    ${SRC}/adb/crypto/key.cpp
-    ${SRC}/adb/crypto/rsa_2048_key.cpp
-    ${SRC}/adb/crypto/x509_generator.cpp
-    ${ADB_PROTO_HDRS}
-    )
+file(GLOB LIBADB_CRYPTO_SRCS ${SRC}/adb/crypto/*.cpp)
+add_library(libadb_crypto STATIC ${LIBADB_CRYPTO_SRCS} ${ADB_PROTO_HDRS})
 target_include_directories(libadb_crypto PRIVATE
     ${SRC}/adb
     ${SRC}/adb/crypto/include
@@ -182,10 +160,8 @@ target_include_directories(libadb_crypto PRIVATE
     ${SRC}/protobuf/src
     )
 
-add_library(libadb_tls_connection STATIC
-    ${SRC}/adb/tls/adb_ca_list.cpp
-    ${SRC}/adb/tls/tls_connection.cpp
-    )
+file(GLOB LIBADB_TLS_SRCS ${SRC}/adb/tls/*.cpp)
+add_library(libadb_tls_connection STATIC ${LIBADB_TLS_SRCS})
 target_include_directories(libadb_tls_connection PRIVATE
     ${SRC}/adb
     ${SRC}/adb/tls/include
@@ -193,9 +169,8 @@ target_include_directories(libadb_tls_connection PRIVATE
     ${SRC}/libbase/include
     )
     
-add_library(libadb_pairing_connection STATIC
-    ${SRC}/adb/pairing_connection/pairing_connection.cpp
-    )
+file(GLOB LIBADB_PAIRING_CONN_SRCS ${SRC}/adb/pairing_connection/*.cpp)
+add_library(libadb_pairing_connection STATIC ${LIBADB_PAIRING_CONN_SRCS})
 target_include_directories(libadb_pairing_connection PRIVATE
     ${SRC}/adb/proto
     ${SRC}/adb/pairing_connection/include
@@ -206,10 +181,8 @@ target_include_directories(libadb_pairing_connection PRIVATE
     ${SRC}/protobuf/src
     )
 
-add_library(libadb_pairing_auth STATIC
-    ${SRC}/adb/pairing_auth/aes_128_gcm.cpp
-    ${SRC}/adb/pairing_auth/pairing_auth.cpp
-    )
+file(GLOB LIBADB_PAIRING_AUTH_SRCS ${SRC}/adb/pairing_auth/*.cpp)
+add_library(libadb_pairing_auth STATIC ${LIBADB_PAIRING_AUTH_SRCS})
 target_include_directories(libadb_pairing_auth PRIVATE
     ${SRC}/adb/pairing_auth/include
     ${SRC}/libbase/include
@@ -225,10 +198,9 @@ target_include_directories(libadb_sysdeps PRIVATE
     ${SRC}/adb
     )
 
+file(GLOB LIBFASTDEPLOY_SRCS ${SRC}/adb/fastdeploy/deploypatchgenerator/*.cpp)
 add_library(libfastdeploy STATIC
-    ${SRC}/adb/fastdeploy/deploypatchgenerator/apk_archive.cpp
-    ${SRC}/adb/fastdeploy/deploypatchgenerator/deploy_patch_generator.cpp
-    ${SRC}/adb/fastdeploy/deploypatchgenerator/patch_utils.cpp
+    ${LIBFASTDEPLOY_SRCS}
     ${SRC}/adb/fastdeploy/proto/ApkEntry.proto
     ${FASTDEPLOY_PROTO_SRC} ${FASTDEPLOY_PROTO_HDRS}
     )
@@ -240,9 +212,8 @@ target_include_directories(libfastdeploy PRIVATE
     ${SRC}/boringssl/include
     )
 
-add_library(libcrypto STATIC
-    ${SRC}/core/libcrypto_utils/android_pubkey.cpp
-    )
+file(GLOB LIBCRYPTO_SRCS ${SRC}/core/libcrypto_utils/*.cpp)
+add_library(libcrypto STATIC ${LIBCRYPTO_SRCS})
 target_include_directories(libcrypto PRIVATE
     ${SRC}/core/libcrypto_utils/include 
     ${SRC}/boringssl/include

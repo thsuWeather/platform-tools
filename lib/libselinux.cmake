@@ -14,72 +14,12 @@
 # limitations under the License.
 #
 
-add_library(libselinux STATIC
-    ${SRC}/selinux/libselinux/src/deny_unknown.c
-    ${SRC}/selinux/libselinux/src/label_x.c
-    ${SRC}/selinux/libselinux/src/compute_create.c
-    ${SRC}/selinux/libselinux/src/getfilecon.c
-    ${SRC}/selinux/libselinux/src/setexecfilecon.c
-    ${SRC}/selinux/libselinux/src/fsetfilecon.c
-    ${SRC}/selinux/libselinux/src/android/android_seapp.c
-    ${SRC}/selinux/libselinux/src/android/android_device.c
-    ${SRC}/selinux/libselinux/src/android/android.c
-    ${SRC}/selinux/libselinux/src/query_user_context.c
-    ${SRC}/selinux/libselinux/src/reject_unknown.c
-    ${SRC}/selinux/libselinux/src/regex.c
-    ${SRC}/selinux/libselinux/src/enabled.c
-    ${SRC}/selinux/libselinux/src/getpeercon.c
-    ${SRC}/selinux/libselinux/src/load_policy.c
-    ${SRC}/selinux/libselinux/src/compute_user.c
-    ${SRC}/selinux/libselinux/src/checkreqprot.c
-    ${SRC}/selinux/libselinux/src/is_customizable_type.c
-    ${SRC}/selinux/libselinux/src/matchmediacon.c
-    ${SRC}/selinux/libselinux/src/compute_member.c
-    ${SRC}/selinux/libselinux/src/booleans.c
-    ${SRC}/selinux/libselinux/src/selinux_internal.c
-    ${SRC}/selinux/libselinux/src/mapping.c
-    ${SRC}/selinux/libselinux/src/setenforce.c
-    ${SRC}/selinux/libselinux/src/callbacks.c
-    ${SRC}/selinux/libselinux/src/compute_av.c
-    ${SRC}/selinux/libselinux/src/selinux_config.c
-    ${SRC}/selinux/libselinux/src/checkAccess.c
-    ${SRC}/selinux/libselinux/src/sestatus.c
-    ${SRC}/selinux/libselinux/src/label_backends_android.c
-    ${SRC}/selinux/libselinux/src/disable.c
-    ${SRC}/selinux/libselinux/src/setrans_client.c
-    ${SRC}/selinux/libselinux/src/lsetfilecon.c
-    ${SRC}/selinux/libselinux/src/fgetfilecon.c
-    ${SRC}/selinux/libselinux/src/avc_internal.c
-    ${SRC}/selinux/libselinux/src/get_context_list.c
-    ${SRC}/selinux/libselinux/src/freecon.c
-#    ${SRC}/selinux/libselinux/src/selinux_restorecon.c
-    ${SRC}/selinux/libselinux/src/stringrep.c
-    ${SRC}/selinux/libselinux/src/label_db.c
-    ${SRC}/selinux/libselinux/src/avc_sidtab.c
-    ${SRC}/selinux/libselinux/src/validatetrans.c
-    ${SRC}/selinux/libselinux/src/getenforce.c
-    ${SRC}/selinux/libselinux/src/setfilecon.c
-    ${SRC}/selinux/libselinux/src/get_initial_context.c
-    ${SRC}/selinux/libselinux/src/procattr.c
-    ${SRC}/selinux/libselinux/src/context.c
-    ${SRC}/selinux/libselinux/src/matchpathcon.c
-    ${SRC}/selinux/libselinux/src/compute_relabel.c
-    ${SRC}/selinux/libselinux/src/label_media.c
-    ${SRC}/selinux/libselinux/src/label_file.c
-    ${SRC}/selinux/libselinux/src/label.c
-    ${SRC}/selinux/libselinux/src/seusers.c
-    ${SRC}/selinux/libselinux/src/policyvers.c
-    ${SRC}/selinux/libselinux/src/label_support.c
-    ${SRC}/selinux/libselinux/src/canonicalize_context.c
-    ${SRC}/selinux/libselinux/src/lgetfilecon.c
-    ${SRC}/selinux/libselinux/src/selinux_check_securetty_context.c
-    ${SRC}/selinux/libselinux/src/init.c
-    ${SRC}/selinux/libselinux/src/freeconary.c
-    ${SRC}/selinux/libselinux/src/check_context.c
-    ${SRC}/selinux/libselinux/src/sha1.c
-    ${SRC}/selinux/libselinux/src/get_default_type.c
-    ${SRC}/selinux/libselinux/src/avc.c
+file(GLOB LIBSELINUX_SRCS
+    ${SRC}/selinux/libselinux/src/*.c
+    ${SRC}/selinux/libselinux/src/android/*.c
     )
+list(REMOVE_ITEM LIBSELINUX_SRCS ${SRC}/selinux/libselinux/src/selinux_restorecon.c)
+add_library(libselinux STATIC ${LIBSELINUX_SRCS})
 
 target_compile_definitions(libselinux PRIVATE
     -DAUDITD_LOG_TAG=1003 

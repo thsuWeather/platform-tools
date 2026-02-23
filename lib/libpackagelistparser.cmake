@@ -14,9 +14,8 @@
 # limitations under the License.
 #
 
-add_library(libpackagelistparser STATIC
-    ${SRC}/core/libpackagelistparser/packagelistparser.cpp
-    )
+file(GLOB LIBPACKAGELISTPARSER_SRCS ${SRC}/core/libpackagelistparser/*.cpp)
+add_library(libpackagelistparser STATIC ${LIBPACKAGELISTPARSER_SRCS})
 
 target_include_directories(libpackagelistparser PRIVATE
     ${SRC}/core/libpackagelistparser/include
