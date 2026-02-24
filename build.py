@@ -116,6 +116,7 @@ def buildFor(abi: str, args):
         "-Dprotobuf_BUILD_TESTS=OFF",
         "-DABSL_PROPAGATE_CXX_STD=ON",
         "-DANDROID_ARM_NEON=ON",
+        "-DGTEST_ROOT=/usr/local",
         "-DCMAKE_BUILD_TYPE=Release"]
 
     if not Path(build_dir).exists():
